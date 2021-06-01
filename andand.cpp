@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int t;
+	cin >> t;
+	while (t--) {
+		int n;
+		cin >> n;
+		int ans = 0;
+		if (n > 1) {
+			int ar[n];
+			for (int i = 0; i < n; i++) {
+				cin >> ar[i];
+			}
+			for (int i = 0; i < n - 1; i++) {
+				for (int j = i + 1; j < n; j++) {
+					if (i < j) {
+
+						if ( ar[i] & ar[j] == ar[i])
+							ans++;
+					}
+				}
+
+			}
+		} else {
+			int a;
+			cin >> a;
+		}
+		cout << ans << endl;
+	}
+}

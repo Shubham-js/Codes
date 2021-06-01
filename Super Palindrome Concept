@@ -1,0 +1,22 @@
+Note: This is part of a series of Leetcode solution explanations. If you like this solution or find it useful, please upvote this post.)
+
+Idea:
+The first thing we should be able to realize about this problem is that it will be easier to start from the small palindrome and square it, rather than starting from the large palindrome and squarerooting it. This is especially useful because the constraint on the large palindrome goes up to 18 digits which means the small palindrome can only go up to 9 digits.
+
+Starting with the smaller palindrome, we can easily create a function isPal() to test if a string is a palindrome, then use it to iteratively check for values that are palindromes and whose squares are also palindromes. This will result in a TLE before it can reach the constraint, but we can use it to find out some interesting information about the small palindromes.
+
+Consider the small palindrome values found between "1" and "9999999999999":
+
+[1, 2, 3, 11, 22, 101, 111, 121, 202, 212, 1001, 1111, 2002, 10001, 10101,
+ 10201, 11011, 11111, 11211, 20002, 20102, 100001, 101101, 110011, 111111,
+ 200002, 1000001, 1001001, 1002001, 1010101, 1011101, 1012101, 1100011,
+ 1101011, 1102011, 1110111, 1111111, 2000002, 2001002]
+Right away, we can notice that, with the exception of the 3, only the numbers 0, 1, & 2 are used in each value. We could, at this point, fairly easily write a function that would iterate through every base3 number from 1 to the maximum value of 19683 (3^9, since the small palindrome is limited to 9 digits) and check it the same way as before. This is a major drop from 1000000000 iterations to only 19683 iterations.
+
+Looking a little more closely at the valid numbers above, we can also notice a few more things:
+
+A 2 can only exist on the edges of the value or the middle position of a value with an odd length.
+If the edges are 2s, then the only other variation is a 1 in the middle on odd length values.
+Using these observations, we can modify our function to build strings matching these rules. As attempting to follow these rules will prevent the base3 shortcut, we'll have to build the strings in a more manual operation, but that also means that we can use the opportunity to ensure that we're only building palindromes, in order to further decrease the iteration count.
+
+In fact, if we follow these rules, we'll only actually iterate through a maximum of 74 values, of which 70 are the valid numbers in the constrained limits.
