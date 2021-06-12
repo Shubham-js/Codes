@@ -97,33 +97,28 @@ int distance_calculator(node*root, int a)
 		return r + 1;
 
 }
-node* least_common_ancestor(node*root, int a, int b)
-{
-
-	if (root == NULL)
-	{
-		return NULL;
-	}
-	if (root->data == a or root->data == b)
+node* lowestCommonAncestor(node* root, int p, int q) {
+	if (root == nullptr or root->val == p or root->val == q)
 	{
 		return root;
 	}
-	node* leftans = least_common_ancestor(root->left, a, b);
-	node* rightans = least_common_ancestor(root->right, a, b);
-	if (leftans != NULL and rightans != NULL)
+	node*left = lowestCommonAncestor(root->left, p, q);
+	node*right = lowestCommonAncestor(root->right, p, q);
+	if (left and right)
 	{
 		return root;
 	}
-	if (leftans != NULL)
+	else if (left)
 	{
-		return leftans;
+		return left;
 	}
-
-	return rightans;
-
-
+	else
+	{
+		return right;
+	}
 
 }
+};
 int main() {
 	node*root = NULL;
 	build_Tree(root);
